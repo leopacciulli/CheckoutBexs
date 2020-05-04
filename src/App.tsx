@@ -1,12 +1,13 @@
 import React from 'react';
 
 import GlobalStyle from './styles/global';
+import Checkout from './pages/Checkout';
 
 const App: React.FC = () => {
   return (
     <>
       <GlobalStyle />
-      <h1>Banco bexs</h1>
+      <Checkout />
     </>
   );
 };

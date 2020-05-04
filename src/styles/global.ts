@@ -16,8 +16,7 @@ export default createGlobalStyle`
   body {
     min-width: 100%;
     min-height: 100%;
-    background: #eeeeee;
-    color: #222222;
+    background: #f9f9f9;
     text-rendering: optimizeLegibility !important;
     -webkit-font-smoothing: antialiased !important;
   }
@@ -25,7 +24,7 @@ export default createGlobalStyle`
   body,
   input,
   button {
-    font: 1.6rem "", sans-serif;
+    font: 1.6rem "Verdana", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6, strong {
