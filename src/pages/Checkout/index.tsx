@@ -21,6 +21,7 @@ import {
   validateDate,
   validateCvc,
 } from '../../utils';
+import api from '../../services/api';
 
 import logo from '../../assets/logo.png';
 import addcard from '../../assets/addcard.png';
@@ -103,7 +104,7 @@ const Checkout: React.FC = () => {
     setParcela(e.target.value);
   };
 
-  const sendData = () => {
+  const handleConfirmarPagamento = async () => {
     if (number === '' || name === '' || expiry === '' || cvc === '') {
       return setFillFields(true);
     }
@@ -118,8 +119,21 @@ const Checkout: React.FC = () => {
     setFillFields(false);
 
     if (numberValid && nameValid && dateValid && cvcValid) {
-      return console.log('ok');
+      try {
+        const card = {
+          number,
+          name,
+          cvc,
+          expiry,
+          parcela,
+        };
+        await api.post('/pagar', card);
+      } catch (err) {
+        console.log(err);
+      }
     }
+
+    return null;
   };
 
   return (
@@ -258,7 +272,7 @@ const Checkout: React.FC = () => {
             {fillFields && <FillFields>Preencha todos os campos</FillFields>}
 
             <Continuar>
-              <button onClick={sendData}>Continuar</button>
+              <button onClick={handleConfirmarPagamento}>Continuar</button>
             </Continuar>
           </InfoContainer>
         </CheckoutCard>
