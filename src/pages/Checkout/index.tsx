@@ -23,13 +23,10 @@ import {
 } from '../../utils';
 import api from '../../services/api';
 
-import logo from '../../assets/logo.png';
 import addcard from '../../assets/addcard.png';
 
 import {
   Page,
-  HeaderContainer,
-  Menu,
   CheckoutCard,
   FormaPagamento,
   TextoNovoCartao,
@@ -138,18 +135,6 @@ const Checkout: React.FC = () => {
 
   return (
     <>
-      <HeaderContainer>
-        <header>
-          <img src={logo} alt="logo" />
-          <div>
-            <Menu />
-            <Menu />
-            <Menu />
-            <Menu />
-            <Menu />
-          </div>
-        </header>
-      </HeaderContainer>
       <Page>
         <CheckoutCard>
           <FormaPagamento>
@@ -159,7 +144,7 @@ const Checkout: React.FC = () => {
             </p>
             <TextoNovoCartao>
               <img src={addcard} alt="card icon" />
-              Adicione um novo cartão de crédito
+              <div>Adicione um novo cartão de crédito</div>
             </TextoNovoCartao>
           </FormaPagamento>
           <InfoContainer>
