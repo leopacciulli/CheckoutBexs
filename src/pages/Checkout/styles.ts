@@ -25,7 +25,7 @@ export const CheckoutCard = styled.div`
   min-height: 600px;
   display: flex;
   background: #fff;
-  margin-top: 100px;
+  margin-top: 150px;
   border: 1px solid #eee;
   position: relative;
 

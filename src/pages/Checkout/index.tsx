@@ -50,7 +50,7 @@ const Checkout: React.FC = () => {
   const [expiry, setExpiry] = useState('');
   const [cvc, setCvc] = useState('');
   const [focus, setFocus] = useState('');
-  const [parcela, setParcela] = useState('1000');
+  const [amount, setAmount] = useState('1000');
   const [maxLength, setMaxLength] = useState();
   const [isNumberValid, setIsNumberValid] = useState(true);
   const [verifyNumber, setVerifyNumber] = useState(true);
@@ -65,18 +65,18 @@ const Checkout: React.FC = () => {
     setFocus(e.target.name);
   };
 
-  const mask = (x: string, y: number, z: string) => {
-    if (x.length > y) return x.slice(0, y) + z + x.slice(y);
-    return x;
+  const inputMask = (value: string, placeToChange: number, stringToPut: string) => {
+    if (value.length > placeToChange) return value.slice(0, placeToChange) + stringToPut + value.slice(placeToChange);
+    return value;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let { value } = e.target;
 
     if (e.target.name === 'number') {
-      if (number.length === 4) value = mask(value, 4, ' ');
-      if (number.length === 9) value = mask(value, 9, ' ');
-      if (number.length === 14) value = mask(value, 14, ' ');
+      if (number.length === 4) value = inputMask(value, 4, ' ');
+      if (number.length === 9) value = inputMask(value, 9, ' ');
+      if (number.length === 14) value = inputMask(value, 14, ' ');
       setNumber(value);
     }
 
@@ -85,7 +85,7 @@ const Checkout: React.FC = () => {
     }
 
     if (e.target.name === 'expiry') {
-      if (expiry.length === 2) value = mask(value, 2, '/');
+      if (expiry.length === 2) value = inputMask(value, 2, '/');
       setExpiry(value);
     }
 
@@ -100,11 +100,11 @@ const Checkout: React.FC = () => {
     setVerifyNumber(isValid);
   };
 
-  const handleSelecionarParcela = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setParcela(e.target.value);
+  const handleSelectPayment = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAmount(e.target.value);
   };
 
-  const handleConfirmarPagamento = async () => {
+  const handleConfirmPayment = async () => {
     if (number === '' || name === '' || expiry === '' || cvc === '') {
       return setFillFields(true);
     }
@@ -125,7 +125,7 @@ const Checkout: React.FC = () => {
           name,
           cvc,
           expiry,
-          parcela,
+          amount,
         };
         await api.post('/pagar', card);
         addToast({
@@ -257,9 +257,9 @@ const Checkout: React.FC = () => {
                 </section>
               </InputFlex>
               <Select
-                defaultValue={parcela}
+                defaultValue={amount}
                 label="Número de parcelas"
-                onChange={handleSelecionarParcela}
+                onChange={handleSelectPayment}
               >
                 <Option value="1000" label="1x de R$ 1000,00" />
                 <Option value="500" label="2x de R$ 500,00" />
@@ -270,7 +270,7 @@ const Checkout: React.FC = () => {
             {fillFields && <FillFields>Preencha todos os campos</FillFields>}
 
             <Continuar>
-              <button onClick={handleConfirmarPagamento}>Continuar</button>
+              <button onClick={handleConfirmPayment}>Continuar</button>
             </Continuar>
           </InfoContainer>
         </CheckoutCard>
