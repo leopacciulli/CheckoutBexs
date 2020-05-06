@@ -22,6 +22,7 @@ import {
   validateCvc,
 } from '../../utils';
 import api from '../../services/api';
+import { useToast } from '../../hooks/toast';
 
 import addcard from '../../assets/addcard.png';
 
@@ -57,6 +58,8 @@ const Checkout: React.FC = () => {
   const [isExpiryValid, setIsExpiryValid] = useState(true);
   const [isCvcValid, setIsCvcValid] = useState(true);
   const [fillFields, setFillFields] = useState(false);
+
+  const { addToast } = useToast();
 
   const handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFocus(e.target.name);
@@ -125,8 +128,18 @@ const Checkout: React.FC = () => {
           parcela,
         };
         await api.post('/pagar', card);
+        addToast({
+          type: 'success',
+          title: 'Pagamento realizado',
+          description: 'Agora só falta confirmar sua compra',
+        });
       } catch (err) {
         console.log(err);
+        addToast({
+          type: 'error',
+          title: 'Erro no pagamento',
+          description: 'Ocorreu um erro ao pagar, cheque os dados do cartão.',
+        });
       }
     }
 
