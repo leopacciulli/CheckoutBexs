@@ -12,7 +12,7 @@
     "@types/react-credit-cards": "^0.8.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-test-renderer": "^16.9.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "muicss": "^0.10.2",
     "polished": "^3.5.2",
     "react": "^16.13.1",
